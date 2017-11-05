@@ -57,7 +57,7 @@
       <h1>Avalible rooms</h1>
       <div class="row">
         <div class="col-12">
-          <div class="table-responsive">
+          <div *ngIf="rooms" class="table-responsive">
             <table class="table">
               <tbody>
                 <tr *ngFor="let room of rooms">
