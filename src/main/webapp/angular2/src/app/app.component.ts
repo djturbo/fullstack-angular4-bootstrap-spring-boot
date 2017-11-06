@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-root',
@@ -43,19 +43,19 @@ export class AppComponent implements OnInit {
         this.rooms = rooms;
       },
       err => {
-        console.log("AppComponent :: onSubmit :: error: ", err);
+        console.log('AppComponent :: onSubmit :: error: ', err);
       }
     );
   }
 
   reserveRoom(value: string) {
-    console.log("AppComponent :: reserveRoom :: value: ", value);
+    console.log('AppComponent :: reserveRoom :: value: ', value);
     this.request = new ReserveRoomRequest(value, this.currentCheckInVal, this.currentCheckOutVal);
-
+    this.createReservation(this.request);
   }
 
   getAll(): Observable<Room[]> {
-    return this.http.get(this.BASE_URL + "/room/reservation/v1?checkin=" + this.currentCheckInVal + "&checkout="+this.currentCheckOutVal)
+    return this.http.get(this.BASE_URL + '/room/reservation/v1?checkin=' + this.currentCheckInVal + '&checkout=' + this.currentCheckOutVal)
       .map(this.mapRoom);
   }
 
@@ -65,7 +65,11 @@ export class AppComponent implements OnInit {
     let option = new RequestOptions({headers: headers});
 
     this.http.post(this.BASE_URL + '/room/reservation/v1', body, option)
-    .subscribe(res => console.log("res: ", res))
+    .subscribe(
+      res => {
+        console.log('res: ', res);
+      },
+    );
   }
 
   mapRoom = (response: Response) => {
